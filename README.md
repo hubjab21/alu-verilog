@@ -1,105 +1,84 @@
-# 🧮 8-bit ALU in Verilog
+# 8-bit ALU in Verilog
 
-This project implements an 8-bit Arithmetic Logic Unit (ALU) in Verilog along with a testbench and waveform visualization using GTKWave.
-
----
-
-
-## ⚙️ Project Description
-
-The Arithmetic Logic Unit (ALU) is a core component of digital systems responsible for performing arithmetic and logical operations.
-
-This implementation operates on:
-
-* `A` – 8-bit input
-* `B` – 8-bit input
-* `OpCode` – 4-bit control signal
-
-The ALU produces:
-
-* `Result` – operation output
-* status flags: `Carry`, `Zero`, `Overflow`, `Parity`
+This project implements a simple 8-bit Arithmetic Logic Unit (ALU) in Verilog together with a testbench and waveform visualization using GTKWave.
 
 ---
 
-## 🔢 Supported Operations
+## Description
 
-| OpCode | Operation            |
-| ------ | -------------------- |
-| 0000   | Addition (A + B)     |
-| 0001   | Subtraction (A - B)  |
-| 0010   | Bitwise AND          |
-| 0011   | Bitwise OR           |
-| 0100   | Bitwise XOR          |
-| 0101   | Bitwise NOT (A)      |
-| 0110   | Shift left           |
-| 0111   | Shift right          |
-| 1000   | Rotate left          |
-| 1001   | Rotate right         |
-| 1010   | Equality check       |
-| 1011   | Less-than comparison |
-| 1100   | Multiplication       |
-| 1101   | Division             |
-| 1110   | Modulo               |
-| 1111   | Conditional shift    |
+The ALU is a basic building block in digital systems.
+It performs arithmetic and logical operations on two 8-bit inputs.
+
+Inputs:
+
+- `A` – 8-bit value
+- `B` – 8-bit value
+- `OpCode` – selects the operation
+
+Outputs:
+
+- `Result` – operation result
+- flags: `Carry`, `Zero`, `Overflow`, `Parity`
 
 ---
 
-## 🚩 Output Flags
+## Operations
 
-* **Carry** – indicates overflow in addition
-* **Zero** – result equals zero
-* **Overflow** – arithmetic overflow
-* **Parity** – even number of 1s in result
+| OpCode | Operation         |
+| ------ | ----------------- |
+| 0000   | A + B             |
+| 0001   | A - B             |
+| 0010   | A & B             |
+| 0011   | A | B             |
+| 0100   | A ^ B             |
+| 0101   | ~A                |
+| 0110   | Shift left        |
+| 0111   | Shift right       |
+| 1000   | Rotate left       |
+| 1001   | Rotate right      |
+| 1010   | A == B            |
+| 1011   | A < B             |
+| 1100   | A * B             |
+| 1101   | A / B             |
+| 1110   | A % B             |
+| 1111   | Conditional shift |
 
 ---
 
-## 🖥️ Installation
+## Flags
 
-Install required tools depending on your system:
+- `Carry` – used for addition overflow
+- `Zero` – set when result is 0
+- `Overflow` – basic signed overflow detection
+- `Parity` – even number of bits set to 1
 
-### Debian / Ubuntu
+---
+
+## Setup
+
+Install required tools:
 
 ```bash
-sudo apt update
 sudo apt install iverilog gtkwave
 ```
 
-### Fedora
-
-```bash
-sudo dnf install iverilog gtkwave
-```
-
-### Arch Linux
-
-```bash
-sudo pacman -S iverilog gtkwave
-```
-
 ---
 
-## ▶️ Running the Project
+## Run
 
-### Compile
+Compile:
 
 ```bash
 iverilog -o ALU_sim -s ALU_testbench ALU.v ALU_testbench.v
 ```
 
-### Run simulation
+Run:
 
 ```bash
 vvp ALU_sim
 ```
 
-This generates:
-
-```
-ALU_waveform.vcd
-```
-
-### Open waveform viewer
+Open waveform:
 
 ```bash
 gtkwave ALU_waveform.vcd
@@ -107,54 +86,46 @@ gtkwave ALU_waveform.vcd
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-.
 ├── ALU.v
-├── ALU_testbench.v
-├── ALU_sim
-├── ALU_waveform.vcd
-├── images
-│   └── waveform.png
+├── ALU_testbench.v 
+├── ALU_sim 
+├── ALU_waveform.vcd 
+├── images 
+│ └── waveform.png 
 └── README.md
 ```
 
 ---
 
-## 📊 Simulation Results
-
-Below is the waveform generated during simulation:
+## Result
 
 ![Waveform](images/waveform.png)
 
-The waveform presents:
-
-* input signals (`A`, `B`)
-* operation selector (`OpCode`)
-* computed result (`Result`)
-* status flags (`Carry`, `Zero`, `Overflow`, `Parity`)
+The waveform shows inputs, selected operation, result, and flags.
 
 ---
 
-## ⚠️ Notes
+## Notes
 
-* Division by zero produces undefined (`X`) values
-* Carry flag is implemented only for addition
-* Some edge cases may require further refinement
-
----
-
-## 🚀 Possible Improvements
-
-* Add division-by-zero protection
-* Improve flag handling
-* Extend ALU to 16-bit / 32-bit
-* Add automated test verification
+- division by zero gives undefined (`X`) values
+- carry is handled only for addition
+- implementation is simple and not optimized
 
 ---
 
-## 👨‍💻 Author
+## Possible improvements
+
+- better overflow handling
+- division-by-zero protection
+- extend to 16/32-bit
+- add automated tests
+
+---
+
+## Author
 
 Hubert Jabłoński
 
